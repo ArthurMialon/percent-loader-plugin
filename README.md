@@ -11,7 +11,7 @@ Un script pour voir le chargement de la page en pourcentage (%)
 		console.log('images load : ' + p + '%' );
 	}
 
-	var endLoad = function(p) {
+	var endLoad = function() {
 		console.log('everything is load');
 	}
 
