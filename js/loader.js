@@ -3,6 +3,8 @@ var Loader = function(progress, endLoad, images){
 				this.images = images || new Array();
 				this.imagesLoaded = 0;
 
+				// Get all images from the DOM 
+				// Push url in an array
 				this.getImagesFromDOM = function() {
 					var img = document.getElementsByTagName('img'); 
 					for(var i = 0; i < img.length; i++) {
@@ -10,10 +12,16 @@ var Loader = function(progress, endLoad, images){
 					}		
 				}
 
+
+				// Get images from CSS
+				// Coming soon
 				this.getImagesFromCSS = function(){
 					return true;
 				}
 
+
+				// Load one images
+				// callback end if it's end or call progress
 				this.loadImage = function(imgUrl) {
 
 					var self = this;
@@ -37,6 +45,7 @@ var Loader = function(progress, endLoad, images){
 				    }
 				}
 
+				// Initialisation
 				this.init = function(){
 
 					if(!images) { this.getImagesFromDOM(); }

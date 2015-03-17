@@ -5,11 +5,11 @@ var test = function(p){
 };
 
 var end =  function(){
-	document.getElementById('loader').classList.add('hide');
-	document.getElementById('body').style.overflow = "auto";
-};
+	setTimeout(function(){
+		document.getElementById('loader').classList.add('hide');
+		document.getElementById('body').style.overflow = "auto";
+	},1000);
 
-// activer la fin au moment ou l'utilisateur le souhaite
-//var imageuh = ['1.jpg'];
+};
 
 var t = new Loader(test, end);

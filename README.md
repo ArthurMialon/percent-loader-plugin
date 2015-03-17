@@ -1,21 +1,16 @@
 # PercentLoader
-Un script pour voir le chargement de la page en pourcentage (%)
+See the % of your page load
 
 
 #How to
 
 	var loader = new Loader(onLoad, endLoad);
 	
-	// Perccentage in parameter
+	// Percentage in parameter
 	var onLoad = function(p) {
 		console.log('images load : ' + p + '%' );
 	}
 
 	var endLoad = function() {
-		console.log('everything is load');
+		console.log('everything loaded');
 	}
-
-
-
-#Se baser sur les images
-Le script récupère toutes les images présentes dans la page et va les charger. A chaque image chargée le pourcentage augmente.
