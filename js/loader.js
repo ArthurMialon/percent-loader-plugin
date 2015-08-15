@@ -1,63 +1,52 @@
 var Loader = function(progress, endLoad, images){
 
-				this.images = images || new Array();
-				this.imagesLoaded = 0;
+	this.images       = images || new Array();
+	this.imagesLoaded = 0;
 
-				// Get all images from the DOM 
-				// Push url in an array
-				this.getImagesFromDOM = function() {
-					var img = document.getElementsByTagName('img'); 
-					for(var i = 0; i < img.length; i++) {
-					    this.images.push(img[i].src);
-					}		
-				}
+	// Get all images from the DOM
+	// Push url in an array
+	this.getImagesFromDOM = function() {
+		var img = document.getElementsByTagName('img');
+		for(var i = 0; i < img.length; i++) {
+		    this.images.push(img[i].src);
+		}
+	}
 
+	// Load one images
+	// callback end if it's end or call progress
+	this.loadImage = function(imgUrl) {
 
-				// Get images from CSS
-				// Coming soon
-				this.getImagesFromCSS = function(){
-					return true;
-				}
+		var self = this;
 
+		var img = document.createElement('img');
 
-				// Load one images
-				// callback end if it's end or call progress
-				this.loadImage = function(imgUrl) {
+	    img.src = imgUrl;
+	    img.style.display = 'hidden';
 
-					var self = this;
+	    img.onload = function () {
+	        self.imagesLoaded++;
 
-					var img = document.createElement('img');
+	        if (self.imagesLoaded === self.images.length) {
+	        	progress.call(this, 100);
+	            endLoad.call(this);
+	        }
+	        else {
+	        	var p = Math.floor((100 * self.imagesLoaded / self.images.length));
+	            progress.call(this, p);
+	        }
+	    }
+	}
 
-				    img.src = imgUrl;
-				    img.style.display = 'hidden';
+	// Initialisation
+	this.init = function(){
 
-				    img.onload = function () {
-				        self.imagesLoaded++;
+		if(!images) { this.getImagesFromDOM(); }
 
-				        if (self.imagesLoaded === self.images.length) {
-				        	progress.call(this, 100);
-				            endLoad.call(this);
-				        }
-				        else {
-				        	var p = Math.floor((100 * self.imagesLoaded / self.images.length));
-				            progress.call(this, p); 				        
-				        }
-				    }
-				}
+		for (var i = 0; i < this.images.length; i++) {
+			this.loadImage(this.images[i]);
+		}
+	}
 
-				// Initialisation
-				this.init = function(){
+	this.init();
 
-					if(!images) { this.getImagesFromDOM(); }
-
-					this.getImagesFromCSS();
- 
-					for (var i = 0; i < this.images.length; i++) {
-						this.loadImage(this.images[i]);
-					}
-				}
-
-				this.init();
-
-			}
-
+}
